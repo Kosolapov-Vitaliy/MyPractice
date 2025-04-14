@@ -23,7 +23,7 @@ namespace Triangle
         };
         int VAO;
         int VBO;
-        int shaderProgram;
+        Shader shaderProgram =new Shader();
         public Game(int width, int height) : base
         (GameWindowSettings.Default, NativeWindowSettings.Default)
         {
@@ -43,47 +43,24 @@ namespace Triangle
             GL.EnableVertexArrayAttrib(VAO, 0);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindVertexArray(0);
-            shaderProgram = GL.CreateProgram();
-            int vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(vertexShader, LoadShaderSource("shader.vert"));
-            GL.CompileShader(vertexShader);
-
-            int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(fragmentShader, LoadShaderSource("shader.frag"));
-            GL.CompileShader(fragmentShader);
-
-            GL.GetShader(vertexShader, ShaderParameter.CompileStatus, out int success1);
-            if (success1 == 0)
-            {
-                string infoLog = GL.GetShaderInfoLog(vertexShader);
-                Console.WriteLine(infoLog);
-            }
-            GL.GetShader(fragmentShader, ShaderParameter.CompileStatus, out
-            int success2);
-            if (success2 == 0)
-            {
-                string infoLog = GL.GetShaderInfoLog(fragmentShader);
-                Console.WriteLine(infoLog);
-            }
-
-            GL.AttachShader(shaderProgram, vertexShader);
-            GL.AttachShader(shaderProgram, fragmentShader);
-
-            GL.LinkProgram(shaderProgram);
-
-            GL.DeleteProgram(shaderProgram);
+            shaderProgram.LoadShader();
         }
         protected override void OnUnload()
         {
             base.OnLoad();
+            GL.DeleteBuffer(VAO);
+            GL.DeleteBuffer(VBO);
+            shaderProgram.DeleteShader();
         }
         protected override void OnRenderFrame(FrameEventArgs args)
-        {            
-            GL.ClearColor(0.3f, 0.3f, 1f, 1f);
+        {
+            GL.ClearColor(1f, 0.3f, 1f, 1f);
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.UseProgram(shaderProgram);
+            
+            shaderProgram.UseShader();
             GL.BindVertexArray(VAO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            
             Context.SwapBuffers();
             base.OnRenderFrame(args);
         }
@@ -102,22 +79,7 @@ namespace Triangle
             this.width = e.Width;
             this.height = e.Height;
         }
-        public static string LoadShaderSource(string filepath)
-        {
-            string shaderSource = "";
-            try
-            {
-                using(StreamReader reader=new StreamReader("../../../Shaders/"+filepath))
-                {
-                    shaderSource = reader.ReadToEnd();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Failed to load shader source file:" + e.Message);
-            }
-            return shaderSource;
-        }
+        
 
     }
 }
