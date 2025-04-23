@@ -1,11 +1,14 @@
-﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pyramid;
+using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Pyramid
 {
@@ -25,6 +28,7 @@ namespace Pyramid
 
         private bool firstMove = true;
         public Vector2 lastPos;
+        public Vector3 last_Pos;
 
 
         public Camera(int width, int height, Vector3 position) 
@@ -39,7 +43,7 @@ namespace Pyramid
         }
         public Matrix4 GetProjection()
         {
-            return Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(60f), SCREENWIDTH / SCREENHEIGHT, 0.1f, 100f);
+            return Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(60f), SCREENWIDTH / SCREENHEIGHT, 0.1f, 500f);
         }
         private void UpdateVectors()
         {
@@ -50,6 +54,21 @@ namespace Pyramid
             if (pitch < -89.0f)
             {
                 pitch = -89.0f;
+            }
+            if(position.Y!=-4.8f)
+            {
+                position.Y = -4.8f;
+            }
+            if(position.X<=6&&position.X>=-6&&position.Z>=9&&position.Z<=16)
+            {
+                if (position.X > 0)
+                    position.X = 6;
+                if (position.X <= 0)
+                    position.X = -6;
+                if(position.Z>12.5)
+                    position.Z = 16;
+                if(position.Z <= 12.5)
+                    position.Z = 9;
             }
             front.X = MathF.Cos(MathHelper.DegreesToRadians(pitch)) * MathF.Cos(MathHelper.DegreesToRadians(yaw));
             front.Y = MathF.Sin(MathHelper.DegreesToRadians(pitch));
@@ -76,6 +95,7 @@ namespace Pyramid
             {
                 position += right * SPEED * (float)e.Time;
             }
+            
             if (firstMove)
             {
                 lastPos = new Vector2(position.X, position.Y);
@@ -95,5 +115,6 @@ namespace Pyramid
             InputController(input, mouse, e);
             UpdateVectors();
         }
+
     }
 }

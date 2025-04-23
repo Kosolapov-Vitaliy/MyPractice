@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pyramid")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d083dfe3cc420bf243b24459a0edfa4ebcfb8207")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af54a0d897b6256c4605e4248421c638d565ec0b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pyramid")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pyramid")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
