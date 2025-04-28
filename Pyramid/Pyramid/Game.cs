@@ -38,6 +38,7 @@ namespace Pyramid
         public Game(int width, int height) : base
         (GameWindowSettings.Default, NativeWindowSettings.Default)
         {
+            Console.WriteLine("F11 - FullScreen");
             for (int i = 0; i < md.model.Count; i++)
             {
                 all_models.Add(md.model[i]);
@@ -141,8 +142,8 @@ namespace Pyramid
         {
             GL.ClearColor(1f, 0.3f, 1f, 1f);
             GL.Clear(ClearBufferMask.ColorBufferBit| ClearBufferMask.DepthBufferBit);
-
-            
+            yRoat = 0f;
+            int scle = 1;
             for (int i = 0; i < all_models.Count; i++)
             {
                 uint[] indices = all_models[i].indices;
@@ -153,7 +154,15 @@ namespace Pyramid
                 Matrix4 view = camera.GetViewMatrix();
                 Matrix4 projection = camera.GetProjection();
                 Matrix4 translation = Matrix4.CreateTranslation(0f, 0f, 0f);
-                //model *= translation;
+                if(i==1||i==0||i==2)
+                {
+                    model = Matrix4.CreateRotationY(yRoat);
+                    Matrix4 scale = Matrix4.CreateScale(scle, scle, scle);
+                    yRoat += 45f;
+                    scle += 1;
+                    model *= translation;
+                    model*= scale;
+                }
                 int modelLocation =
                 GL.GetUniformLocation(shaderProgram.shaderHandle, "model");
                 int viewLocation =

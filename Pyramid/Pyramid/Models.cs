@@ -34,13 +34,22 @@ namespace Pyramid
             model.Add(new Pyramid().pyramid);
             tex_paths.Add("../../../Textures/PYRAMID.jpg");
 
+            model.Add(new Pyramid().pyramid);
+            tex_paths.Add("../../../Textures/PYRAMID.jpg");
+
+            model.Add(new Pyramid().pyramid);
+            tex_paths.Add("../../../Textures/PYRAMID.jpg");
+
             model.Add(new Sky().sky);
             tex_paths.Add("../../../Textures/SKYBOX.jpg");
 
             model.Add(new Desert().desert);
             tex_paths.Add("../../../Textures/DESERT.jpg");
+
+            model.Add(new Bareer().bareer);
+            tex_paths.Add("../../../Textures/BAREER.jpg");
         }
-        class Pyramid
+        internal class Pyramid
         {
             public Model pyramid;
             public Pyramid()
@@ -106,8 +115,7 @@ namespace Pyramid
                     14,15,12
                 };
             }
-        }
-
+        }        
         class Sky
         {
             public Model sky;
@@ -213,6 +221,72 @@ namespace Pyramid
                 {
                     0,1,2,
                     2,3,0,
+                };
+            }
+        }
+        internal class Bareer
+        {
+            public Model bareer;
+            public Bareer()
+            {
+                bareer = new Model();
+                bareer.vertices = new List<Vector3>
+                {
+                    new Vector3(-10f, -5f, 5f),
+                    new Vector3(10f, -5f, 5f),
+                    new Vector3(10f, -4.8f, 5f),
+                    new Vector3(-10f, -4.8f, 5f),
+
+                    new Vector3(-10f, -5f, 5f),
+                    new Vector3(-10f, -5f, -5f),
+                    new Vector3(-10f, -4.8f, -5f),
+                    new Vector3(-10f, -4.8f, 5f),
+
+                    new Vector3(-10f, -5f, -5f),
+                    new Vector3(10f, -5f, -5f),
+                    new Vector3(10f, -4.8f, -5f),
+                    new Vector3(-10f, -4.8f, -5f),
+
+                    new Vector3(10f, -5f, -5f),
+                    new Vector3(10f, -5f, 5f),
+                    new Vector3(10f, -4.8f, 5f),
+                    new Vector3(10f, -4.8f, -5f),
+        };
+                bareer.texCoord = new List<Vector2>
+                {
+                    new Vector2(0f, 0f),
+                    new Vector2(0f, 40f),
+                    new Vector2(1f, 40f),
+                    new Vector2(1f, 0f),
+
+                    new Vector2(0f, 0f),
+                    new Vector2(0f, 20f),
+                    new Vector2(1f, 20f),
+                    new Vector2(1f, 0f),
+
+                    new Vector2(0f, 0f),
+                    new Vector2(0f, 40f),
+                    new Vector2(1f, 40f),
+                    new Vector2(1f, 0f),
+
+                    new Vector2(0f, 0f),
+                    new Vector2(0f, 20f),
+                    new Vector2(1f, 20f),
+                    new Vector2(1f, 0f),
+                };
+                bareer.indices = new uint[]
+                {
+                    0,1,2,
+                    2,3,0,
+
+                    4,5,6,
+                    6,7,4,
+
+                    8,9,10,
+                    10,11,8,
+
+                    12,13,14,
+                    14,15,12
                 };
             }
         }

@@ -14,7 +14,7 @@ namespace Pyramid
 {
     public class Camera
     {
-        private float SPEED = 8f;
+        private float SPEED = 3f;
         private int SCREENWIDTH;
         private int SCREENHEIGHT;
         private float SENSITIVITY = 100f;
@@ -59,17 +59,14 @@ namespace Pyramid
             {
                 position.Y = -4.8f;
             }
-            if(position.X<=6&&position.X>=-6&&position.Z>=9&&position.Z<=16)
-            {
-                if (position.X > 0)
-                    position.X = 6;
-                if (position.X <= 0)
-                    position.X = -6;
-                if(position.Z>12.5)
-                    position.Z = 16;
-                if(position.Z <= 12.5)
-                    position.Z = 9;
-            }
+            if (position.X>=9.85)
+                position.X = 9.85f;
+            if (position.X <= -9.85)
+                position.X = -9.85f;
+            if (position.Z >= 4.85)
+                position.Z = 4.85f;
+            if (position.Z <= -4.85)
+                position.Z = -4.85f;
             front.X = MathF.Cos(MathHelper.DegreesToRadians(pitch)) * MathF.Cos(MathHelper.DegreesToRadians(yaw));
             front.Y = MathF.Sin(MathHelper.DegreesToRadians(pitch));
             front.Z = MathF.Cos(MathHelper.DegreesToRadians(pitch)) * MathF.Sin(MathHelper.DegreesToRadians(yaw));
