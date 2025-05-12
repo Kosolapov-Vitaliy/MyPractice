@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Triangle")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("RayTracing")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("Triangle")]
-[assembly: System.Reflection.AssemblyTitleAttribute("Triangle")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d062862bf53e2201fe349487eeaafbca26a097d1")]
+[assembly: System.Reflection.AssemblyProductAttribute("RayTracing")]
+[assembly: System.Reflection.AssemblyTitleAttribute("RayTracing")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Создано классом WriteCodeFragment MSBuild.
