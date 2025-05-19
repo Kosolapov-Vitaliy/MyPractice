@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
+using System;
+using System.IO;
 
 namespace RayTracing
 {
@@ -26,7 +26,12 @@ namespace RayTracing
 
         public void Initialize()
         {
-            GL.ClearColor(Color4.Black); // Изменили на черный фон
+
+            string version = GL.GetString(StringName.Version);
+            string glslVersion = GL.GetString(StringName.ShadingLanguageVersion);
+            Console.WriteLine($"OpenGL: {version}, GLSL: {glslVersion}");
+
+            GL.ClearColor(Color4.White);
 
             InitShaders();
             SetupVBO();
@@ -38,7 +43,6 @@ namespace RayTracing
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
 
-            // Устанавливаем uniform-переменные
             GL.UseProgram(BasicProgramID);
             var aspectLoc = GL.GetUniformLocation(BasicProgramID, "uAspect");
             GL.Uniform1(aspectLoc, aspectRatio);
@@ -48,7 +52,6 @@ namespace RayTracing
         {
             BasicProgramID = GL.CreateProgram();
 
-            // Проверяем существование файлов шейдеров
             if (!File.Exists(Path.Combine("Shaders", "raytracing.vert")) ||
                 !File.Exists(Path.Combine("Shaders", "raytracing.frag")))
             {
@@ -60,7 +63,6 @@ namespace RayTracing
 
             GL.LinkProgram(BasicProgramID);
 
-            // Проверка ошибок
             GL.GetProgram(BasicProgramID, GetProgramParameterName.LinkStatus, out int status);
             if (status == 0)
             {
@@ -68,7 +70,6 @@ namespace RayTracing
                 throw new Exception($"Program linking failed: {log}");
             }
 
-            // Привязываем атрибуты
             GL.BindAttribLocation(BasicProgramID, 0, "vPosition");
         }
 
@@ -84,7 +85,6 @@ namespace RayTracing
             GL.ShaderSource(address, shaderSource);
             GL.CompileShader(address);
 
-            // Проверка компиляции
             GL.GetShader(address, ShaderParameter.CompileStatus, out int success);
             if (success == 0)
             {
@@ -97,7 +97,6 @@ namespace RayTracing
 
         private void SetupVBO()
         {
-            // Вершины полноэкранного квада (2 треугольника)
             vertdata = new Vector3[]
             {
                 new Vector3(-1f, -1f, 0f),
@@ -121,7 +120,6 @@ namespace RayTracing
             GL.UseProgram(BasicProgramID);
             GL.BindVertexArray(vao);
 
-            // Обновляем aspect ratio если изменился размер окна
             float currentAspect = window.Size.X / (float)window.Size.Y;
             if (Math.Abs(currentAspect - aspectRatio) > 0.001f)
             {

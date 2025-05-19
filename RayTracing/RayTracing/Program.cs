@@ -25,11 +25,9 @@ namespace RayTracing
                     window.SwapBuffers();
                 };
 
-                // Обработка изменения размера окна
                 window.Resize += (e) =>
                 {
                     GL.Viewport(0, 0, window.Size.X, window.Size.Y);
-                    // Здесь можно обновить uniform-переменные с aspect ratio
                 };
 
                 window.Run();
